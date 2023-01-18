@@ -46,10 +46,10 @@ A terceira, onde a compra é confirmada exibindo dados inseridos no passo anteri
 ```bash
 # Clonar aplicação
 
-$ git clone https://github.com/MauricioAires/ignite-time-airs
+$ git clone https://github.com/MauricioAires/coffee-delivery-airs
 
 # Acessar a aplicação
-$ cd ignite-time-airs
+$ cd coffee-delivery-airs
 
 # Execute yarn para instalar as dependências
 $ npm i
