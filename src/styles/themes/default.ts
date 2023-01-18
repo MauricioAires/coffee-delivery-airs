@@ -21,7 +21,7 @@ export const defaultTheme = {
 
   'font-regular': 400,
   'font-bold': 700,
-  'font-extra-bold': 900,
+  'font-extra-bold': 800,
 
   'base-line-height': '130%',
   'large-line-height': '160%',
