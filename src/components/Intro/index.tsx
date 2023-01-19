@@ -46,9 +46,7 @@ export function Intro() {
           </S.ListItems>
         </S.MainContent>
 
-        <div>
-          <img src={introWallpaper} alt="" />
-        </div>
+        <img src={introWallpaper} alt="" />
       </S.IntroContent>
     </S.IntroWrapper>
   )

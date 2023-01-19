@@ -7,6 +7,8 @@ export const IntroWrapper = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   position: relative;
+
+  padding: 0 1rem;
 `
 
 export const Background = styled.div`
@@ -24,6 +26,12 @@ export const IntroContent = styled.div`
   margin: 0 auto;
 
   display: flex;
+
+  img {
+    @media (max-width: 900px) {
+      display: none;
+    }
+  }
 `
 
 export const MainContent = styled.div``
