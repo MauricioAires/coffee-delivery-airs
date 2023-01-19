@@ -44,20 +44,3 @@ export const Location = styled.button`
     }
   `}
 `
-
-export const Cart = styled.button`
-  ${({ theme }) => css`
-    background: ${theme['yellow-light']};
-    color: ${theme.yellow};
-
-    line-height: ${theme['base-line-height']};
-
-    padding: 0.5rem;
-    border-radius: 6px;
-    border: 0;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  `}
-`
