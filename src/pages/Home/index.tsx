@@ -1,4 +1,3 @@
-import { Button } from '../../components/Button'
 import { CoffeeList } from '../../components/CoffeeList'
 import { Intro } from '../../components/Intro'
 
