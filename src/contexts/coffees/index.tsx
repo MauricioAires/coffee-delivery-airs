@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useCallback, useContext, useState } from 'react'
 
 export type Coffee = {
   id: number
@@ -7,11 +7,13 @@ export type Coffee = {
   title: string
   description: string
   price: number
-  quantityPurchased?: number
+  quantityPurchased: number
 }
 
 interface CoffeesContextProps {
   coffees: Coffee[]
+  addWishlist: (id: number, quantity: number) => void
+  updateQuantityPurchased: (id: number, quantity: number) => void
 }
 
 export const CoffeesContext = createContext({} as CoffeesContextProps)
@@ -29,6 +31,7 @@ export function CoffeesProvider({ children }: CoffeesProviderProps) {
       title: 'Expresso Tradicional',
       description: 'O tradicional café feito com água quente e grãos moídos',
       price: 9.9,
+      quantityPurchased: 0,
     },
     {
       id: 2,
@@ -37,6 +40,7 @@ export function CoffeesProvider({ children }: CoffeesProviderProps) {
       title: 'Expresso Americano',
       description: 'Expresso diluído, menos intenso que o tradicional',
       price: 9.9,
+      quantityPurchased: 0,
     },
     {
       id: 3,
@@ -45,6 +49,7 @@ export function CoffeesProvider({ children }: CoffeesProviderProps) {
       title: 'Expresso Cremoso',
       description: 'Café expresso tradicional com espuma cremosa',
       price: 9.9,
+      quantityPurchased: 0,
     },
     {
       id: 4,
@@ -53,6 +58,7 @@ export function CoffeesProvider({ children }: CoffeesProviderProps) {
       title: 'Expresso Gelado',
       description: 'Bebida preparada com café expresso e cubos de gelo',
       price: 9.9,
+      quantityPurchased: 0,
     },
     {
       id: 5,
@@ -61,6 +67,7 @@ export function CoffeesProvider({ children }: CoffeesProviderProps) {
       title: 'Café com Leite',
       description: 'Meio a meio de expresso tradicional com leite vaporizado',
       price: 9.9,
+      quantityPurchased: 0,
     },
     {
       id: 6,
@@ -70,6 +77,7 @@ export function CoffeesProvider({ children }: CoffeesProviderProps) {
       description:
         'Uma dose de café expresso com o dobro de leite e espuma cremosa',
       price: 9.9,
+      quantityPurchased: 0,
     },
     {
       id: 7,
@@ -79,6 +87,7 @@ export function CoffeesProvider({ children }: CoffeesProviderProps) {
       description:
         'Bebida com canela feita de doses iguais de café, leite e espuma',
       price: 9.9,
+      quantityPurchased: 0,
     },
     {
       id: 8,
@@ -88,6 +97,7 @@ export function CoffeesProvider({ children }: CoffeesProviderProps) {
       description:
         'Café expresso misturado com um pouco de leite quente e espuma',
       price: 9.9,
+      quantityPurchased: 0,
     },
     {
       id: 9,
@@ -96,6 +106,7 @@ export function CoffeesProvider({ children }: CoffeesProviderProps) {
       title: 'Mocaccino',
       description: 'Café expresso com calda de chocolate, pouco leite e espuma',
       price: 9.9,
+      quantityPurchased: 0,
     },
     {
       id: 10,
@@ -105,6 +116,7 @@ export function CoffeesProvider({ children }: CoffeesProviderProps) {
       description:
         'Bebida feita com chocolate dissolvido no leite quente e café',
       price: 9.9,
+      quantityPurchased: 0,
     },
     {
       id: 11,
@@ -114,6 +126,7 @@ export function CoffeesProvider({ children }: CoffeesProviderProps) {
       description:
         'Drink gelado de café expresso com rum, creme de leite e hortelã',
       price: 9.9,
+      quantityPurchased: 0,
     },
     {
       id: 12,
@@ -122,6 +135,7 @@ export function CoffeesProvider({ children }: CoffeesProviderProps) {
       title: 'Havaiano',
       description: 'Bebida adocicada preparada com café e leite de coco',
       price: 9.9,
+      quantityPurchased: 0,
     },
     {
       id: 13,
@@ -130,6 +144,7 @@ export function CoffeesProvider({ children }: CoffeesProviderProps) {
       title: 'Árabe',
       description: 'Bebida preparada com grãos de café árabe e especiarias',
       price: 9.9,
+      quantityPurchased: 0,
     },
     {
       id: 14,
@@ -138,13 +153,51 @@ export function CoffeesProvider({ children }: CoffeesProviderProps) {
       title: 'Irlandês',
       description: 'Bebida a base de café, uísque irlandês, açúcar e chantilly',
       price: 9.9,
+      quantityPurchased: 0,
     },
   ])
+
+  const addWishlist = useCallback((id: number, quantity: number) => {
+    setCoffees((state) => {
+      return state.map((coffee) => {
+        if (coffee.id === id) {
+          return {
+            ...coffee,
+            quantityPurchased: coffee.quantityPurchased
+              ? coffee.quantityPurchased + quantity
+              : quantity,
+          }
+        }
+
+        return coffee
+      })
+    })
+  }, [])
+
+  const updateQuantityPurchased = useCallback(
+    (id: number, quantity: number) => {
+      setCoffees((state) => {
+        return state.map((coffee) => {
+          if (coffee.id === id) {
+            return {
+              ...coffee,
+              quantityPurchased: quantity,
+            }
+          }
+
+          return coffee
+        })
+      })
+    },
+    [],
+  )
 
   return (
     <CoffeesContext.Provider
       value={{
         coffees,
+        updateQuantityPurchased,
+        addWishlist,
       }}
     >
       {children}
