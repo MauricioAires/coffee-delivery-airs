@@ -28,6 +28,34 @@ export const Cart = styled.button<CartProps>`
     justify-content: center;
     align-items: center;
 
+    position: relative;
+
     ${!!variant && modifiersCart[variant](theme)}
+  `}
+`
+
+export const Badged = styled.p`
+  ${({ theme }) => css`
+    font-size: 111px;
+    background: ${theme['yellow-dark']};
+    line-height: ${theme['base-line-height']};
+    font-size: ${theme.xs};
+    color: ${theme.white};
+
+    text-decoration: none !important;
+
+    width: 1.25rem;
+    height: 1.25rem;
+
+    border-radius: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(30%, -30%);
   `}
 `
