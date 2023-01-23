@@ -11,8 +11,17 @@ import { Button } from '../../components/Button'
 import * as S from './styles'
 import { Counter } from '../../components/Counter'
 import { Link } from 'react-router-dom'
+import { useCoffees } from '../../contexts/coffees'
 
 export function CheckoutPage() {
+  const { coffees, updateQuantityPurchased } = useCoffees()
+
+  const coffeesPurchased = coffees.filter((coffee) => coffee.quantityPurchased)
+
+  function handleUpdateQuantityPurchased(coffeeId: number, quantity: number) {
+    updateQuantityPurchased(coffeeId, quantity)
+  }
+
   return (
     <S.CheckoutWrapper>
       <S.SessionWrapper>
@@ -100,61 +109,40 @@ export function CheckoutPage() {
         <S.SessionTitle>Cafés selecionados</S.SessionTitle>
         <S.SessionContent>
           <S.CoffeeList>
-            <S.CoffeeSelected>
-              <S.CoffeeInfo>
-                <img src="/coffees/expresso.svg" alt="expresso" />
+            {coffeesPurchased.map((coffee) => (
+              <S.CoffeeSelected key={coffee.id}>
+                <S.CoffeeInfo>
+                  <img src={coffee.image} alt={coffee.title} />
 
-                <div>
-                  <h3>Expresso Tradicional</h3>
-                  <S.Actions>
-                    <Counter />
-                    <S.RemoveCoffee>
-                      <Trash size={16} />
-                      Remover
-                    </S.RemoveCoffee>
-                  </S.Actions>
-                </div>
-              </S.CoffeeInfo>
+                  <div>
+                    <h3>{coffee.title}</h3>
+                    <S.Actions>
+                      <Counter
+                        quantity={coffee.quantityPurchased}
+                        changeQuantity={(e) =>
+                          handleUpdateQuantityPurchased(coffee.id, e)
+                        }
+                      />
+                      <S.RemoveCoffee
+                        onClick={() =>
+                          handleUpdateQuantityPurchased(coffee.id, 0)
+                        }
+                      >
+                        <Trash size={16} />
+                        Remover
+                      </S.RemoveCoffee>
+                    </S.Actions>
+                  </div>
+                </S.CoffeeInfo>
 
-              <S.Price>R$ 9,90</S.Price>
-            </S.CoffeeSelected>
-            <S.CoffeeSelected>
-              <S.CoffeeInfo>
-                <img src="/coffees/expresso.svg" alt="expresso" />
-
-                <div>
-                  <h3>Expresso Tradicional</h3>
-                  <S.Actions>
-                    <Counter />
-                    <S.RemoveCoffee>
-                      <Trash size={16} />
-                      Remover
-                    </S.RemoveCoffee>
-                  </S.Actions>
-                </div>
-              </S.CoffeeInfo>
-
-              <S.Price>R$ 9,90</S.Price>
-            </S.CoffeeSelected>
-
-            <S.CoffeeSelected>
-              <S.CoffeeInfo>
-                <img src="/coffees/expresso.svg" alt="expresso" />
-
-                <div>
-                  <h3>Expresso Tradicional</h3>
-                  <S.Actions>
-                    <Counter />
-                    <S.RemoveCoffee>
-                      <Trash size={16} />
-                      Remover
-                    </S.RemoveCoffee>
-                  </S.Actions>
-                </div>
-              </S.CoffeeInfo>
-
-              <S.Price>R$ 9,90</S.Price>
-            </S.CoffeeSelected>
+                <S.Price>
+                  {new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  }).format(coffee.price * coffee.quantityPurchased)}
+                </S.Price>
+              </S.CoffeeSelected>
+            ))}
           </S.CoffeeList>
 
           <S.CheckoutResume>
