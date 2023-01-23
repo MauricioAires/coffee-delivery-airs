@@ -14,6 +14,11 @@ ${({ theme }) => css`
     -webkit-font-smoothing: antialiased;
   }
 
+  button {
+    border: 0;
+    cursor: pointer;
+  }
+
   body,
   input,
   textarea,
