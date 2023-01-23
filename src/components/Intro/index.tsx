@@ -1,5 +1,6 @@
 import { ShoppingCart, Timer, Package, Coffee } from 'phosphor-react'
 import introWallpaper from '../../assets/intro-wallpaper.svg'
+import { BulletPoint } from '../BulletPoint'
 
 import * as S from './styles'
 
@@ -17,30 +18,30 @@ export function Intro() {
 
           <S.ListItems>
             <S.Item>
-              <S.ItemBullet color="yellow-dark">
+              <BulletPoint color="yellow-dark">
                 <ShoppingCart size={16} weight="bold" />
-              </S.ItemBullet>
+              </BulletPoint>
               Compra simples e segura
             </S.Item>
 
             <S.Item>
-              <S.ItemBullet color="gray">
+              <BulletPoint color="gray">
                 <Package size={16} weight="bold" />
-              </S.ItemBullet>
+              </BulletPoint>
               Embalagem mantém o café intacto
             </S.Item>
 
             <S.Item>
-              <S.ItemBullet color="yellow">
+              <BulletPoint color="yellow">
                 <Timer size={16} weight="bold" />
-              </S.ItemBullet>
+              </BulletPoint>
               Entrega rápida e rastreada
             </S.Item>
 
             <S.Item>
-              <S.ItemBullet color="purple">
+              <BulletPoint color="purple">
                 <Coffee size={16} weight="bold" />
-              </S.ItemBullet>
+              </BulletPoint>
               O café chega fresquinho até você
             </S.Item>
           </S.ListItems>

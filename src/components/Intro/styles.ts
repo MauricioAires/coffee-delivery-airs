@@ -81,38 +81,3 @@ export const Item = styled.div`
     font-size: ${theme.md};
   `}
 `
-
-const modifiersItemBullet = {
-  yellow: (theme: DefaultTheme) => css`
-    background: ${theme.yellow};
-  `,
-  'yellow-dark': (theme: DefaultTheme) => css`
-    background: ${theme['yellow-dark']};
-  `,
-  gray: (theme: DefaultTheme) => css`
-    background: ${theme['base-text']};
-  `,
-  purple: (theme: DefaultTheme) => css`
-    background: ${theme.purple};
-  `,
-}
-
-interface ItemBulletProps {
-  color: keyof typeof modifiersItemBullet
-}
-
-export const ItemBullet = styled.span<ItemBulletProps>`
-  ${({ theme, color }) => css`
-    padding: 0.5rem;
-    border-radius: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    color: ${theme.white};
-    background: ${theme['yellow-dark']};
-
-    ${color && modifiersItemBullet[color](theme)}
-  `}
-`
