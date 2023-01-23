@@ -1,4 +1,4 @@
-import styled, { css, DefaultTheme } from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import backgroundImage from '../../assets/intro-background.svg'
 
@@ -15,9 +15,8 @@ export const Background = styled.div`
   background-image: url(${backgroundImage});
   background-size: 100%;
   filter: blur(20px);
-  width: 100%;
-  height: 100%;
 
+  inset: 0;
   position: absolute;
 `
 
