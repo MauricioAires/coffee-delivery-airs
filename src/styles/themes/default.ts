@@ -35,4 +35,10 @@ export const defaultTheme = {
   '2xl': '1.5rem', // 24px
   '3xl': '1.875rem', // 30px
   '5xl': '3rem', // 48px
+
+  'breakpoint-sm': '30em', // 480px
+  'breakpoint-md': '48em', // 768px
+  'breakpoint-lg': '62em', // 992px
+  'breakpoint-xl': '80em', // 1280px
+  'breakpoint-2xl': '96em', // 1536px
 } as const
