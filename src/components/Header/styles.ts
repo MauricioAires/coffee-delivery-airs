@@ -1,7 +1,15 @@
 import styled, { css } from 'styled-components'
 
 export const HeaderWrapper = styled.header`
-  padding: 2rem 1rem;
+  ${({ theme }) => css`
+    padding: 2rem 1rem;
+
+    position: sticky;
+    top: 0;
+    background: ${theme.background};
+
+    z-index: 10;
+  `}
 `
 
 export const Content = styled.div`

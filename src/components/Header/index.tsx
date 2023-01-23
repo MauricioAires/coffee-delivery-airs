@@ -1,12 +1,22 @@
 import { MapPin } from 'phosphor-react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import coffeeDeliveryLogo from '../../assets/coffee-delivery-logo.svg'
+import { useCoffees } from '../../contexts/coffees'
 import { ShoppingCartButton } from '../ShoppingCartButton'
 
 import * as S from './styles'
 
 export function Header() {
+  const { coffees } = useCoffees()
+
+  const coffeesPurchased = coffees.filter((coffee) => coffee.quantityPurchased)
+
+  const total = coffeesPurchased.reduce((total, coffee) => {
+    return (total += coffee.quantityPurchased as number)
+  }, 0)
+
   return (
     <S.HeaderWrapper>
       <S.Content>
@@ -24,7 +34,7 @@ export function Header() {
           </S.Location>
 
           <Link to="/checkout">
-            <ShoppingCartButton variant="yellow" />
+            <ShoppingCartButton amountItems={total} variant="yellow" />
           </Link>
         </S.Actions>
       </S.Content>
