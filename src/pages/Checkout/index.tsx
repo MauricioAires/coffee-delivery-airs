@@ -10,6 +10,7 @@ import { Button } from '../../components/Button'
 
 import * as S from './styles'
 import { Counter } from '../../components/Counter'
+import { Link } from 'react-router-dom'
 
 export function CheckoutPage() {
   return (
@@ -171,7 +172,9 @@ export function CheckoutPage() {
             </div>
           </S.CheckoutResume>
 
-          <Button label="Confirmar pedido" />
+          <Link to="/checkout/success">
+            <Button label="Confirmar pedido" />
+          </Link>
         </S.SessionContent>
       </S.SessionWrapper>
     </S.CheckoutWrapper>
