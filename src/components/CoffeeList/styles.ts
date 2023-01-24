@@ -18,10 +18,8 @@ export const Title = styled.h2`
 `
 
 export const Content = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 2rem;
   padding: 1.875rem 0;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
 `

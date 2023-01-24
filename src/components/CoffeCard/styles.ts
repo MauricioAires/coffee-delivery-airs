@@ -2,9 +2,6 @@ import styled, { css } from 'styled-components'
 
 export const CoffeeCard = styled.div`
   ${({ theme }) => css`
-    width: calc(calc(100% / 4) - 2rem);
-    min-width: 16rem;
-
     background: ${theme['base-card']};
     /* width: 16rem; */
     border-radius: 6px 36px 6px 36px;
