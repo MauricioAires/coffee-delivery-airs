@@ -200,7 +200,11 @@ export function CheckoutPage() {
                   </div>
                 </S.CheckoutResume>
 
-                <Button onClick={handleCheckout} label="Confirmar pedido" />
+                <Button
+                  disabled
+                  onClick={handleCheckout}
+                  label="Confirmar pedido"
+                />
               </>
             )}
           </S.SessionContent>
