@@ -4,6 +4,7 @@ import {
   Bank,
   CreditCard,
   CurrencyDollar,
+  Info,
   MapPin,
   Money,
   Trash,
@@ -22,12 +23,18 @@ import {
   PAYMENT_METHOD,
   useDeliveryAddress,
 } from '../../contexts/delivery-address'
+import { useCoffeeShop } from '../../contexts/coffee-shop'
 
 export function CheckoutPage() {
   const navigate = useNavigate()
-  const { coffees, updateQuantityPurchased } = useCoffees()
-  const { changePaymentMethod, getPaymentMethodText, paymentMethod } =
-    useDeliveryAddress()
+  const { coffees, updateQuantityPurchased, resetWishlist } = useCoffees()
+  const {
+    changePaymentMethod,
+    deliveryAddress,
+    getPaymentMethodText,
+    paymentMethod,
+  } = useDeliveryAddress()
+  const { coffeeShopAddress } = useCoffeeShop()
 
   const coffeesPurchased = coffees.filter((coffee) => coffee.quantityPurchased)
 
@@ -48,6 +55,7 @@ export function CheckoutPage() {
   function handleCheckout() {
     navigate('/checkout/success')
     toast.success('Compra realizada com sucesso!')
+    resetWishlist()
   }
 
   return (
@@ -200,8 +208,24 @@ export function CheckoutPage() {
                   </div>
                 </S.CheckoutResume>
 
+                {(!deliveryAddress.city || !coffeeShopAddress.state) && (
+                  <S.FormErrors>
+                    <h3>
+                      <Info size={16} weight="bold" /> Para confirmar o pedido
+                    </h3>
+                    <ul>
+                      {!coffeeShopAddress.state && (
+                        <li>Escolha uma caféteria</li>
+                      )}
+                      {!deliveryAddress.city && (
+                        <li>Preeecha o endereço de entrega</li>
+                      )}
+                    </ul>
+                  </S.FormErrors>
+                )}
+
                 <Button
-                  disabled
+                  disabled={!(deliveryAddress.city && coffeeShopAddress.state)}
                   onClick={handleCheckout}
                   label="Confirmar pedido"
                 />
