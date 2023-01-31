@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-hot-toast'
 import {
   Bank,
   CreditCard,
@@ -6,165 +9,207 @@ import {
   Money,
   Trash,
 } from 'phosphor-react'
+
+import { calculateDeliveryPrice } from '../../services/viacep'
+
 import { Button } from '../../components/Button'
+import { Counter } from '../../components/Counter'
+import { useCoffees } from '../../contexts/coffees'
+import { FormDeliveryAddress } from '../../components/FormDeliveryAddress'
 
 import * as S from './styles'
-import { Counter } from '../../components/Counter'
-import { Link } from 'react-router-dom'
-import { useCoffees } from '../../contexts/coffees'
+
+enum PAYMENT_METHOD {
+  'CREDIT_CARD' = 'CREDIT_CARD',
+  'DEBIT_CARD' = 'DEBIT_CARD',
+  'MONEY' = 'MONEY',
+}
+
+type PaymentMethod = keyof typeof PAYMENT_METHOD
 
 export function CheckoutPage() {
+  const navigate = useNavigate()
   const { coffees, updateQuantityPurchased } = useCoffees()
+  const [paymentMethod, setPaymentMethod] =
+    useState<PaymentMethod>('CREDIT_CARD')
 
   const coffeesPurchased = coffees.filter((coffee) => coffee.quantityPurchased)
+
+  const totalPurchased = coffeesPurchased.reduce((total, coffee) => {
+    return (total = total + coffee.quantityPurchased * coffee.price)
+  }, 0)
+
+  const deliveryPrice = calculateDeliveryPrice(totalPurchased)
 
   function handleUpdateQuantityPurchased(coffeeId: number, quantity: number) {
     updateQuantityPurchased(coffeeId, quantity)
   }
 
+  function handleChangePaymentMethod(method: PaymentMethod) {
+    setPaymentMethod(method)
+  }
+
+  function handleCheckout() {
+    navigate('/checkout/success')
+    toast.success('Compra realizada com sucesso!')
+  }
+
   return (
     <S.CheckoutWrapper>
-      <S.SessionWrapper>
-        <S.SessionTitle>Complete seu pedido</S.SessionTitle>
+      <S.CheckoutContent>
+        <S.SessionWrapper>
+          <S.SessionTitle>Complete seu pedido</S.SessionTitle>
 
-        <S.SessionContent>
-          <S.Info>
-            <span>
-              <MapPin size={22} />
-            </span>
-            <div>
-              <p>Endereço de Entrega</p>
-              <span>Informe o endereço onde deseja receber seu pedido</span>
-            </div>
-          </S.Info>
+          <S.SessionContent>
+            <S.Info>
+              <span>
+                <MapPin size={22} />
+              </span>
+              <div>
+                <p>Endereço de Entrega</p>
+                <span>Informe o endereço onde deseja receber seu pedido</span>
+              </div>
+            </S.Info>
 
-          <S.AddressForm action="#">
-            <S.FormGroup size="medium">
-              <label>CEP</label>
-              <input placeholder="CEP" />
-            </S.FormGroup>
-            <S.FormGroup>
-              <label>Rua</label>
-              <input placeholder="Rua" />
-            </S.FormGroup>
-            <S.FormRow>
-              <S.FormGroup size="medium">
-                <label>Número</label>
-                <input placeholder="Número" />
-              </S.FormGroup>
-              <S.FormGroup optional>
-                <label>Complemento</label>
-                <input placeholder="Complemento" />
-                <span>Opcional</span>
-              </S.FormGroup>
-            </S.FormRow>
-            <S.FormRow>
-              <S.FormGroup size="medium">
-                <label>Bairro</label>
-                <input placeholder="Bairro" />
-              </S.FormGroup>
-              <S.FormGroup>
-                <label>Cidade</label>
-                <input placeholder="Cidade" />
-              </S.FormGroup>
-              <S.FormGroup size="small">
-                <label>UF</label>
-                <input placeholder="UF" />
-              </S.FormGroup>
-            </S.FormRow>
-          </S.AddressForm>
-        </S.SessionContent>
+            <FormDeliveryAddress />
+          </S.SessionContent>
 
-        <S.Payment>
-          <S.Info variant="purple">
-            <span>
-              <CurrencyDollar size={22} />
-            </span>
-            <div>
-              <p>Endereço de Entrega</p>
-              <span>Informe o endereço onde deseja receber seu pedido</span>
-            </div>
-          </S.Info>
+          <S.Payment>
+            <S.Info variant="purple">
+              <span>
+                <CurrencyDollar size={22} />
+              </span>
+              <div>
+                <p>Pagamento</p>
+                <span>
+                  O pagamento é feito na entrega. Escolha a forma que deseja
+                  pagar
+                </span>
+              </div>
+            </S.Info>
 
-          <S.PaymentList>
-            <S.PaymentOption selected type="button">
-              <CreditCard size={16} />
-              Cartão de crédito
-            </S.PaymentOption>
+            <S.PaymentList>
+              <S.PaymentOption
+                selected={PAYMENT_METHOD.CREDIT_CARD === paymentMethod}
+                onClick={() =>
+                  handleChangePaymentMethod(PAYMENT_METHOD.CREDIT_CARD)
+                }
+                type="button"
+              >
+                <CreditCard size={16} />
+                Cartão de crédito
+              </S.PaymentOption>
 
-            <S.PaymentOption type="button">
-              <Bank size={16} />
-              Cartão de débito
-            </S.PaymentOption>
+              <S.PaymentOption
+                selected={PAYMENT_METHOD.DEBIT_CARD === paymentMethod}
+                onClick={() =>
+                  handleChangePaymentMethod(PAYMENT_METHOD.DEBIT_CARD)
+                }
+                type="button"
+              >
+                <Bank size={16} />
+                Cartão de débito
+              </S.PaymentOption>
 
-            <S.PaymentOption type="button">
-              <Money size={16} />
-              Dinheiro
-            </S.PaymentOption>
-          </S.PaymentList>
-        </S.Payment>
-      </S.SessionWrapper>
+              <S.PaymentOption
+                selected={PAYMENT_METHOD.MONEY === paymentMethod}
+                onClick={() => handleChangePaymentMethod(PAYMENT_METHOD.MONEY)}
+                type="button"
+              >
+                <Money size={16} />
+                Dinheiro
+              </S.PaymentOption>
+            </S.PaymentList>
+          </S.Payment>
+        </S.SessionWrapper>
 
-      <S.SessionWrapper>
-        <S.SessionTitle>Cafés selecionados</S.SessionTitle>
-        <S.SessionContent>
-          <S.CoffeeList>
-            {coffeesPurchased.map((coffee) => (
-              <S.CoffeeSelected key={coffee.id}>
-                <S.CoffeeInfo>
-                  <img src={coffee.image} alt={coffee.title} />
+        <S.SessionWrapper>
+          <S.SessionTitle>Cafés selecionados</S.SessionTitle>
+          <S.SessionContent>
+            {!coffeesPurchased.length && (
+              <S.CoffeeListEmpty>
+                <p>Você ainda não adicionou cafés no carrinho.</p>
+                <Link to="/">
+                  <Button label="Escolher meus cafés" />
+                </Link>
+              </S.CoffeeListEmpty>
+            )}
 
+            {!!coffeesPurchased.length && (
+              <>
+                <S.CoffeeList>
+                  {coffeesPurchased.map((coffee) => (
+                    <S.CoffeeSelected key={coffee.id}>
+                      <S.CoffeeInfo>
+                        <img src={coffee.image} alt={coffee.title} />
+
+                        <div>
+                          <h3>{coffee.title}</h3>
+                          <S.Actions>
+                            <Counter
+                              quantity={coffee.quantityPurchased}
+                              changeQuantity={(e) =>
+                                handleUpdateQuantityPurchased(coffee.id, e)
+                              }
+                            />
+                            <S.RemoveCoffee
+                              onClick={() =>
+                                handleUpdateQuantityPurchased(coffee.id, 0)
+                              }
+                            >
+                              <Trash size={16} />
+                              Remover
+                            </S.RemoveCoffee>
+                          </S.Actions>
+                        </div>
+                      </S.CoffeeInfo>
+
+                      <S.Price>
+                        {new Intl.NumberFormat('pt-BR', {
+                          style: 'currency',
+                          currency: 'BRL',
+                        }).format(coffee.price * coffee.quantityPurchased)}
+                      </S.Price>
+                    </S.CoffeeSelected>
+                  ))}
+                </S.CoffeeList>
+
+                <S.CheckoutResume>
                   <div>
-                    <h3>{coffee.title}</h3>
-                    <S.Actions>
-                      <Counter
-                        quantity={coffee.quantityPurchased}
-                        changeQuantity={(e) =>
-                          handleUpdateQuantityPurchased(coffee.id, e)
-                        }
-                      />
-                      <S.RemoveCoffee
-                        onClick={() =>
-                          handleUpdateQuantityPurchased(coffee.id, 0)
-                        }
-                      >
-                        <Trash size={16} />
-                        Remover
-                      </S.RemoveCoffee>
-                    </S.Actions>
+                    <p>Total de itens</p>
+                    <p>
+                      {new Intl.NumberFormat('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL',
+                      }).format(totalPurchased)}
+                    </p>
                   </div>
-                </S.CoffeeInfo>
+                  <div>
+                    <p>Entrega</p>
+                    <p>
+                      {new Intl.NumberFormat('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL',
+                      }).format(deliveryPrice)}
+                    </p>
+                  </div>
+                  <div>
+                    <b>Total</b>
+                    <b>
+                      {new Intl.NumberFormat('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL',
+                      }).format(deliveryPrice + totalPurchased)}
+                    </b>
+                  </div>
+                </S.CheckoutResume>
 
-                <S.Price>
-                  {new Intl.NumberFormat('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL',
-                  }).format(coffee.price * coffee.quantityPurchased)}
-                </S.Price>
-              </S.CoffeeSelected>
-            ))}
-          </S.CoffeeList>
-
-          <S.CheckoutResume>
-            <div>
-              <p>Total de itens</p>
-              <p>R$ 29,70</p>
-            </div>
-            <div>
-              <p>Entrega</p>
-              <p>R$ 3,50</p>
-            </div>
-            <div>
-              <b>Total</b>
-              <b>R$ 29,70</b>
-            </div>
-          </S.CheckoutResume>
-
-          <Link to="/checkout/success">
-            <Button label="Confirmar pedido" />
-          </Link>
-        </S.SessionContent>
-      </S.SessionWrapper>
+                <Button onClick={handleCheckout} label="Confirmar pedido" />
+              </>
+            )}
+          </S.SessionContent>
+        </S.SessionWrapper>
+      </S.CheckoutContent>
     </S.CheckoutWrapper>
   )
 }

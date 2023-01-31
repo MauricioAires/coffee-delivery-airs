@@ -1,9 +1,32 @@
 import styled, { css, DefaultTheme } from 'styled-components'
 
 export const CheckoutWrapper = styled.div`
+  width: 100%;
+  padding: 1rem;
+`
+
+export const CoffeeListEmpty = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 2rem;
+
+    > a {
+      width: 100%;
+    }
+
+    > p {
+      font-style: italic;
+    }
+  `}
+`
+
+export const CheckoutContent = styled.div`
   max-width: 1220px;
   margin: 0 auto;
-  padding: 1rem;
 
   display: flex;
   flex-direction: row;
@@ -70,100 +93,6 @@ export const Info = styled.div<InfoProps>`
         font-size: ${theme.sm};
         font-weight: ${theme['base-line-height']};
         color: ${theme['base-text']};
-      }
-    }
-  `}
-`
-
-export const AddressForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`
-
-export const FormRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-`
-
-interface FormGroupProps {
-  optional?: boolean
-  size?: 'medium' | 'full' | 'small'
-}
-
-const modifiersFormGroup = {
-  full: () => css`
-    flex: 1;
-  `,
-
-  medium: () =>
-    css`
-      width: 35%;
-    `,
-
-  small: () =>
-    css`
-      width: calc(calc(100% / 5) - 0.75rem);
-    `,
-}
-
-export const FormGroup = styled.div<FormGroupProps>`
-  ${({ theme, optional = false, size = 'full' }) => css`
-    ${size && modifiersFormGroup[size]}
-
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 0.25rem;
-
-    position: relative;
-
-    > span {
-      position: absolute;
-      color: ${theme['base-label']};
-      line-height: ${theme['base-line-height']};
-      font-size: ${theme.xs};
-      bottom: 0.75rem;
-      right: 1rem;
-      pointer-events: none;
-      font-style: italic;
-    }
-
-    > label {
-      color: ${theme['base-title']};
-      font-size: ${theme.sm};
-      line-height: ${theme['base-line-height']};
-    }
-
-    > input {
-      background: ${theme['base-input']};
-      color: ${theme['base-text']};
-      border: 0;
-      height: 4;
-      height: 2.625rem;
-      padding: 0.875rem;
-
-      ${optional &&
-      css`
-        padding-right: 4rem;
-      `}
-
-      border-radius: 0.25rem;
-
-      border: 1px solid ${theme['base-button']};
-      line-height: ${theme['base-line-height']};
-
-      &::placeholder {
-        color: ${theme['base-label']};
-      }
-
-      &:focus {
-        box-shadow: none;
-        outline-color: ${theme['yellow-dark']};
-        outline-width: 1px;
-        outline-style: solid;
       }
     }
   `}
