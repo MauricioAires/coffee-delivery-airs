@@ -3,6 +3,10 @@ import styled, { css, DefaultTheme } from 'styled-components'
 export const CheckoutWrapper = styled.div`
   width: 100%;
   padding: 1rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 `
 
 export const FormErrors = styled.div`
@@ -60,20 +64,29 @@ export const CoffeeListEmpty = styled.div`
 `
 
 export const CheckoutContent = styled.div`
-  max-width: 1220px;
-  margin: 0 auto;
+  ${({ theme }) => css`
+    max-width: 1220px;
+    width: 100%;
 
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
 
-  flex-wrap: wrap;
+    flex-wrap: wrap;
+
+    @media (max-width: ${theme['breakpoint-lg']}) {
+      flex-direction: column;
+    }
+  `}
 `
 
 export const SessionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  align-items: center;
+  justify-content: center;
 
   flex: 1;
 `
@@ -96,7 +109,9 @@ export const SessionContent = styled.div`
     gap: 2rem;
     border-radius: 6px;
 
-    padding: 2.5rem;
+    width: 100%;
+
+    padding: 2rem;
   `}
 `
 
@@ -142,15 +157,24 @@ export const Payment = styled.div`
     gap: 2rem;
     border-radius: 6px;
 
-    padding: 2.5rem;
+    padding: 2rem;
+
+    width: 100%;
   `}
 `
 
 export const PaymentList = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 1rem;
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    gap: 1rem;
+
+    @media (max-width: ${theme['breakpoint-md']}) {
+      flex-direction: column;
+    }
+  `}
 `
 
 interface PaymentOptionProps {
