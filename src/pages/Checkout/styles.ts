@@ -112,6 +112,10 @@ export const SessionContent = styled.div`
     width: 100%;
 
     padding: 2rem;
+
+    @media (max-width: ${theme['breakpoint-lg']}) {
+      padding: 1rem;
+    }
   `}
 `
 
@@ -264,6 +268,11 @@ export const CoffeeInfo = styled.div`
       width: 4rem;
       height: 4rem;
       flex-shrink: 0;
+
+      @media (max-width: ${theme['breakpoint-lg']}) {
+        width: 3rem;
+        height: 3rem;
+      }
     }
 
     > div {
