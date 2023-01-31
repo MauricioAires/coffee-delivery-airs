@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { toast } from 'react-hot-toast'
+
 import { Coffee, useCoffees } from '../../contexts/coffees'
 import { Counter } from '../Counter'
 import { ShoppingCartButton } from '../ShoppingCartButton'
@@ -31,6 +33,8 @@ export function CoffeeCard({
   function handleAddWishlist() {
     addWishlist(id, quantitySelected)
     setQuantitySelected(1)
+
+    toast.success(`${quantitySelected} ${title} adicionado ao carrinho`)
   }
 
   return (
