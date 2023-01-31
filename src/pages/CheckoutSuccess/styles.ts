@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components'
 export const CheckoutSuccessWrapper = styled.div`
   display: flex;
   justify-content: center;
+  align-items: flex-end;
   padding: 1rem;
 `
 

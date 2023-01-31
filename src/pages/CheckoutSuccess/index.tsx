@@ -6,7 +6,8 @@ import { useDeliveryAddress } from '../../contexts/delivery-address'
 import * as S from './styles'
 
 export function CheckoutSuccessPage() {
-  const { getPaymentMethodText, paymentMethod } = useDeliveryAddress()
+  const { getPaymentMethodText, paymentMethod, fullDeliveryAddress } =
+    useDeliveryAddress()
   return (
     <S.CheckoutSuccessWrapper>
       <S.CheckoutContent>
@@ -23,14 +24,14 @@ export function CheckoutSuccessPage() {
               </BulletPoint>
 
               <div>
-                <h2>Entrega em Rua João Daniel Martinelli, 102</h2>
-                <span>Farrapos - Porto Alegre, RS</span>
+                <h2>Endereço de entrega</h2>
+                <span>{fullDeliveryAddress()}</span>
               </div>
             </S.CheckoutInfo>
 
             <S.CheckoutInfo>
-              <BulletPoint color="yellow">
-                <Timer size={16} weight="fill" />
+              <BulletPoint color="yellow-dark">
+                <CurrencyDollar size={16} weight="fill" />
               </BulletPoint>
               <div>
                 <h2>Pagamento na entrega</h2>
@@ -39,8 +40,8 @@ export function CheckoutSuccessPage() {
             </S.CheckoutInfo>
 
             <S.CheckoutInfo>
-              <BulletPoint color="yellow-dark">
-                <CurrencyDollar size={16} weight="fill" />
+              <BulletPoint color="yellow">
+                <Timer size={16} weight="fill" />
               </BulletPoint>
               <div>
                 <h2>Previsão de entrega</h2>
