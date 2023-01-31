@@ -24,7 +24,7 @@ interface DeliveryAddressContextProps {
   changeDeliveryAddress: (address: Partial<DeliveryAddress>) => void
   changePaymentMethod: (method: PaymentMethod) => void
   getPaymentMethodText: (method: PaymentMethod) => string
-  fullDeliveryAddress: () => string
+  fullDeliveryAddress: string
 }
 
 export const DeliveryAddressContext = createContext(
@@ -53,6 +53,8 @@ export function DeliveryAddressProvider({
     },
   )
 
+  const fullDeliveryAddress = `${deliveryAddress.street} ${deliveryAddress.number}, ${deliveryAddress.complement} ${deliveryAddress.neighborhood}, ${deliveryAddress.city}, ${deliveryAddress.state} ${deliveryAddress.postal_code}`
+
   const [paymentMethod, setPaymentMethod] =
     useState<PaymentMethod>('CREDIT_CARD')
 
@@ -71,14 +73,16 @@ export function DeliveryAddressProvider({
   }
 
   function changeDeliveryAddress(address: Partial<DeliveryAddress>) {
-    setDeliveryAddress((state) => ({
-      ...state,
-      ...address,
-    }))
-  }
+    setDeliveryAddress((state) => {
+      const updatedDeliveryAddress = { ...state, ...address }
 
-  function fullDeliveryAddress() {
-    return `${deliveryAddress.street} ${deliveryAddress.number}, ${deliveryAddress.complement} ${deliveryAddress.neighborhood}, ${deliveryAddress.city}, ${deliveryAddress.state} ${deliveryAddress.postal_code}`
+      localStorage.setItem(
+        KEY_LOCAL_STORAGE_DELIVERY_ADDRESS,
+        JSON.stringify(updatedDeliveryAddress),
+      )
+
+      return updatedDeliveryAddress
+    })
   }
 
   return (
@@ -86,10 +90,10 @@ export function DeliveryAddressProvider({
       value={{
         paymentMethod,
         deliveryAddress,
+        fullDeliveryAddress,
         getPaymentMethodText,
         changePaymentMethod,
         changeDeliveryAddress,
-        fullDeliveryAddress,
       }}
     >
       {children}
