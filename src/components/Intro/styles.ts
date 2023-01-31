@@ -9,6 +9,8 @@ export const IntroWrapper = styled.div`
   position: relative;
 
   padding: 0 1rem;
+
+  margin-bottom: 1.5rem;
 `
 
 export const Background = styled.div`
@@ -21,16 +23,18 @@ export const Background = styled.div`
 `
 
 export const IntroContent = styled.div`
-  max-width: 1220px;
-  margin: 0 auto;
+  ${({ theme }) => css`
+    max-width: 1220px;
+    margin: 0 auto;
 
-  display: flex;
+    display: flex;
 
-  img {
-    @media (max-width: 900px) {
-      display: none;
+    img {
+      @media (max-width: ${theme['breakpoint-lg']}) {
+        display: none;
+      }
     }
-  }
+  `}
 `
 
 export const MainContent = styled.div``
@@ -44,6 +48,10 @@ export const Title = styled.h1`
     font-size: ${theme['5xl']};
 
     font-family: 'Baloo 2', sans-serif;
+
+    @media (max-width: ${theme['breakpoint-md']}) {
+      font-size: ${theme['3xl']};
+    }
   `}
 `
 
@@ -54,6 +62,10 @@ export const Subtitle = styled.h2`
     line-height: ${theme['base-line-height']};
 
     font-size: ${theme.xl};
+
+    @media (max-width: ${theme['breakpoint-md']}) {
+      font-size: ${theme.lg};
+    }
   `}
 `
 
@@ -78,5 +90,9 @@ export const Item = styled.div`
     color: ${theme['base-text']};
     line-height: ${theme['base-line-height']};
     font-size: ${theme.md};
+
+    @media (max-width: ${theme['breakpoint-md']}) {
+      font-size: ${theme.sm};
+    }
   `}
 `
