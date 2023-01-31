@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import checkoutSuccess from '../../assets/coffee-delivery-logo.svg'
 import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete'
 
-import { useCoffees } from '../../contexts/coffees'
+import { useCoffeeShop } from '../../contexts/coffee-shop'
 
 import * as S from './styles'
 
@@ -15,15 +15,15 @@ export function LocationAddressModal({
   isOpen = false,
   onClose,
 }: LocationAddressModalProps) {
-  const { changeDeliveryAddress, deliveryAddress } = useCoffees()
+  const { changeCoffeeShopAddress, coffeeShopAddress } = useCoffeeShop()
 
   const [address, setAddress] = useState('')
 
   useEffect(() => {
-    if (!!deliveryAddress.city && !!deliveryAddress.state) {
-      setAddress(`${deliveryAddress.city}, ${deliveryAddress.state}`)
+    if (!!coffeeShopAddress?.city && !!coffeeShopAddress?.state) {
+      setAddress(`${coffeeShopAddress.city}, ${coffeeShopAddress.state}`)
     }
-  }, [deliveryAddress])
+  }, [coffeeShopAddress])
 
   const handleChange = (address: any) => {
     setAddress(address)
@@ -38,17 +38,17 @@ export function LocationAddressModal({
 
             postalCodeArray.splice(4, 0, '-')
 
-            changeDeliveryAddress({
+            changeCoffeeShopAddress({
               postal_code: postalCodeArray.join(''),
             })
           }
           if (component.types.includes('administrative_area_level_2')) {
-            changeDeliveryAddress({
+            changeCoffeeShopAddress({
               city: component.long_name,
             })
           }
           if (component.types.includes('administrative_area_level_1')) {
-            changeDeliveryAddress({
+            changeCoffeeShopAddress({
               state: component.short_name,
             })
           }

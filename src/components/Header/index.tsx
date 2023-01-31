@@ -1,8 +1,9 @@
 import { MapPin } from 'phosphor-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import coffeeDeliveryLogo from '../../assets/coffee-delivery-logo.svg'
+import { useCoffeeShop } from '../../contexts/coffee-shop'
 import { useCoffees } from '../../contexts/coffees'
 import { LocationAddressModal } from '../LocationAddressModal'
 import { ShoppingCartButton } from '../ShoppingCartButton'
@@ -10,7 +11,8 @@ import { ShoppingCartButton } from '../ShoppingCartButton'
 import * as S from './styles'
 
 export function Header() {
-  const { coffees, deliveryAddress } = useCoffees()
+  const { coffees } = useCoffees()
+  const { coffeeShopAddress } = useCoffeeShop()
 
   const [openLocationAddressModal, setOpenLocationAddressModal] =
     useState(false)
@@ -36,8 +38,8 @@ export function Header() {
             <S.Location onClick={() => setOpenLocationAddressModal(true)}>
               <MapPin size={22} weight="fill" />
               <span>
-                {!!deliveryAddress.city && !!deliveryAddress.state
-                  ? `${deliveryAddress.city}, ${deliveryAddress.state}`
+                {!!coffeeShopAddress?.city && !!coffeeShopAddress?.state
+                  ? `${coffeeShopAddress.city}, ${coffeeShopAddress.state}`
                   : 'Escolha um endereço'}
               </span>
             </S.Location>
