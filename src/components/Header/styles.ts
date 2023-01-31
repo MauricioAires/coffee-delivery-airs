@@ -22,9 +22,10 @@ export const Content = styled.div`
 
 export const Actions = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: flex-end;
   gap: 0.75rem;
+  flex: 1;
 `
 
 export const Location = styled.button`
@@ -45,10 +46,20 @@ export const Location = styled.button`
     line-height: ${theme['base-line-height']};
     font-weight: ${theme['font-regular']};
 
+    max-width: 64%;
+
+    > span {
+      max-width: 100%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
     font-size: ${theme.sm};
 
     > svg {
       color: ${theme.purple};
+      flex-shrink: 0;
     }
   `}
 `
