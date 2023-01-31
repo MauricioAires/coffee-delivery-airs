@@ -85,7 +85,7 @@ export function LocationAddressModal({
               >
                 <input
                   {...getInputProps({
-                    placeholder: 'Digite seu endereço de entrega',
+                    placeholder: 'Digite o endereço da cafeteria',
                     className: 'location-search-input',
                   })}
                 />

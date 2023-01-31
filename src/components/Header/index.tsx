@@ -40,7 +40,7 @@ export function Header() {
               <span>
                 {!!coffeeShopAddress?.city && !!coffeeShopAddress?.state
                   ? `${coffeeShopAddress.city}, ${coffeeShopAddress.state}`
-                  : 'Escolha um endereço'}
+                  : 'Escolha uma cafeteria'}
               </span>
             </S.Location>
 
