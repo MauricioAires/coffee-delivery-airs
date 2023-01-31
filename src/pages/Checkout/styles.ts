@@ -5,23 +5,58 @@ export const CheckoutWrapper = styled.div`
   padding: 1rem;
 `
 
-export const CoffeeListEmpty = styled.div`
+export const FormErrors = styled.div`
   ${({ theme }) => css`
+    padding: 1rem;
+    border-radius: 6px;
+    color: ${theme.white};
+    background: ${theme.red};
+
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    gap: 1rem;
 
-    gap: 2rem;
-
-    > a {
-      width: 100%;
+    > h3 {
+      font-size: ${theme.sm};
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
     }
 
-    > p {
-      font-style: italic;
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+
+      > li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+        font-size: ${theme.xs};
+        margin-left: 1.3rem;
+      }
     }
   `}
+`
+
+export const CoffeeListEmpty = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 2rem;
+
+  > a {
+    width: 100%;
+  }
+
+  > p {
+    font-style: italic;
+  }
 `
 
 export const CheckoutContent = styled.div`
