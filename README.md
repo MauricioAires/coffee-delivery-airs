@@ -29,17 +29,20 @@ A terceira, onde a compra é confirmada exibindo dados inseridos no passo anteri
 
 ### 🛠️ Tecnologias
 
+<!-- - [AutoAnimate](https://auto-animate.formkit.com/) -->
+
 - [ReactJs](https://reactjs.org/)
 - [Typescript](https://www.typescriptlang.org/)
 - [Phosphor Icons](https://phosphoricons.com/)
 - [Styled Components](https://styled-components.com/)
 - [ViteJS](https://vitejs.dev/)
 - [LocalStorage API](https://developer.mozilla.org/pt-BR/docs/Web/API/Window/localStorage)
-- [Immer](https://immerjs.github.io/immer/)
-- [AutoAnimate](https://auto-animate.formkit.com/)
-- [React Toastify](https://www.npmjs.com/package/react-toastify)
+- [React hot toast](https://react-hot-toast.com/)
 - [React Router](https://reactrouter.com/en/main)
 - [ViaCEP API](https://viacep.com.br/)
+- [Google Place Autocomplete](https://developers.google.com/maps/documentation/places/web-service/autocomplete)
+- [Zod](https://zod.dev/)
+- [React Hook Form](https://react-hook-form.com/)
 
 ### 🚀 Iniciando o projeto
 

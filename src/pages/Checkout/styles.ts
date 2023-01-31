@@ -70,6 +70,7 @@ export const CheckoutContent = styled.div`
 
     display: flex;
     flex-direction: row;
+    align-items: flex-start;
     gap: 2rem;
 
     flex-wrap: wrap;
