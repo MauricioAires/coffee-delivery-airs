@@ -104,11 +104,11 @@ export function LocationAddressModal({
                       : { backgroundColor: '#ffffff', cursor: 'pointer' }
                     return (
                       <S.AutocompleteOption
-                        key={suggestion.placeId}
                         {...getSuggestionItemProps(suggestion, {
                           className,
                           style,
                         })}
+                        key={suggestion.id}
                       >
                         <span>{suggestion.description}</span>
                       </S.AutocompleteOption>
