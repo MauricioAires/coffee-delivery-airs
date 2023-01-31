@@ -9,10 +9,7 @@ import { Button } from '../Button'
 import { findByPostalCode } from '../../services/viacep'
 import { FormGroup } from '../FormGroup'
 import { Check, HouseLine } from 'phosphor-react'
-import {
-  KEY_LOCAL_STORAGE_DELIVERY_ADDRESS,
-  useDeliveryAddress,
-} from '../../contexts/delivery-address'
+import { useDeliveryAddress } from '../../contexts/delivery-address'
 
 import * as S from './styles'
 
@@ -53,8 +50,11 @@ type DeliveryAddressFormData = zod.infer<
 
 export function FormDeliveryAddress() {
   const [showFormDeliveryAddress, setShowDeliveryAddress] = useState(false)
-  const { fullDeliveryAddress, deliveryAddress: _deliveryAddress } =
-    useDeliveryAddress()
+  const {
+    fullDeliveryAddress,
+    changeDeliveryAddress,
+    deliveryAddress: _deliveryAddress,
+  } = useDeliveryAddress()
 
   const [deliveryAddress, setDeliveryAddress] = useState(_deliveryAddress)
 
@@ -71,14 +71,10 @@ export function FormDeliveryAddress() {
 
   const onSubmit = async (data: DeliveryAddressFormData) => {
     setDeliveryAddress(data)
+    changeDeliveryAddress(data)
     setShowDeliveryAddress(false)
 
     toast.success('Endereço atualizado com sucesso!')
-
-    localStorage.setItem(
-      KEY_LOCAL_STORAGE_DELIVERY_ADDRESS,
-      JSON.stringify(data),
-    )
   }
 
   const postalCode = watch('postal_code')
@@ -103,7 +99,7 @@ export function FormDeliveryAddress() {
         <S.SelectedAddress>
           <S.SelectedAddressContent>
             <HouseLine weight="bold" size={22} />
-            <span>{fullDeliveryAddress()}</span>
+            <span>{fullDeliveryAddress}</span>
           </S.SelectedAddressContent>
 
           <S.Badge>
