@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
 import {
@@ -18,20 +17,16 @@ import { useCoffees } from '../../contexts/coffees'
 import { FormDeliveryAddress } from '../../components/FormDeliveryAddress'
 
 import * as S from './styles'
-
-enum PAYMENT_METHOD {
-  'CREDIT_CARD' = 'CREDIT_CARD',
-  'DEBIT_CARD' = 'DEBIT_CARD',
-  'MONEY' = 'MONEY',
-}
-
-type PaymentMethod = keyof typeof PAYMENT_METHOD
+import {
+  PaymentMethod,
+  PAYMENT_METHOD,
+  useDeliveryAddress,
+} from '../../contexts/delivery-address'
 
 export function CheckoutPage() {
   const navigate = useNavigate()
   const { coffees, updateQuantityPurchased } = useCoffees()
-  const [paymentMethod, setPaymentMethod] =
-    useState<PaymentMethod>('CREDIT_CARD')
+  const { changePaymentMethod, paymentMethod } = useDeliveryAddress()
 
   const coffeesPurchased = coffees.filter((coffee) => coffee.quantityPurchased)
 
@@ -46,7 +41,7 @@ export function CheckoutPage() {
   }
 
   function handleChangePaymentMethod(method: PaymentMethod) {
-    setPaymentMethod(method)
+    changePaymentMethod(method)
   }
 
   function handleCheckout() {

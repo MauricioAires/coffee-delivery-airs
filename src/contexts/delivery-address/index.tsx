@@ -10,9 +10,19 @@ type DeliveryAddress = {
   neighborhood: string
 }
 
+export enum PAYMENT_METHOD {
+  'CREDIT_CARD' = 'CREDIT_CARD',
+  'DEBIT_CARD' = 'DEBIT_CARD',
+  'MONEY' = 'MONEY',
+}
+
+export type PaymentMethod = keyof typeof PAYMENT_METHOD
+
 interface DeliveryAddressContextProps {
   deliveryAddress: DeliveryAddress
+  paymentMethod: PaymentMethod
   changeDeliveryAddress: (address: Partial<DeliveryAddress>) => void
+  changePaymentMethod: (method: PaymentMethod) => void
   fullDeliveryAddress: () => string
 }
 
@@ -42,6 +52,13 @@ export function DeliveryAddressProvider({
     },
   )
 
+  const [paymentMethod, setPaymentMethod] =
+    useState<PaymentMethod>('CREDIT_CARD')
+
+  function changePaymentMethod(method: PaymentMethod) {
+    setPaymentMethod(method)
+  }
+
   function changeDeliveryAddress(address: Partial<DeliveryAddress>) {
     setDeliveryAddress((state) => ({
       ...state,
@@ -56,7 +73,9 @@ export function DeliveryAddressProvider({
   return (
     <DeliveryAddressContext.Provider
       value={{
+        paymentMethod,
         deliveryAddress,
+        changePaymentMethod,
         changeDeliveryAddress,
         fullDeliveryAddress,
       }}
