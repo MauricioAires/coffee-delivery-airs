@@ -1,9 +1,8 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { toast } from 'react-hot-toast'
 
 import * as zod from 'zod'
-
-import * as S from './styles'
 
 import { useCallback, useEffect, useState } from 'react'
 import { Button } from '../Button'
@@ -14,6 +13,8 @@ import {
   KEY_LOCAL_STORAGE_DELIVERY_ADDRESS,
   useDeliveryAddress,
 } from '../../contexts/delivery-address'
+
+import * as S from './styles'
 
 const deliveryAddressFormValidationSchema = zod.object({
   postal_code: zod
@@ -52,9 +53,10 @@ type DeliveryAddressFormData = zod.infer<
 
 export function FormDeliveryAddress() {
   const [showFormDeliveryAddress, setShowDeliveryAddress] = useState(false)
-  const { fullDeliveryAddress, deliveryAddress: bb } = useDeliveryAddress()
+  const { fullDeliveryAddress, deliveryAddress: _deliveryAddress } =
+    useDeliveryAddress()
 
-  const [deliveryAddress, setDeliveryAddress] = useState(bb)
+  const [deliveryAddress, setDeliveryAddress] = useState(_deliveryAddress)
 
   const {
     register,
@@ -70,6 +72,8 @@ export function FormDeliveryAddress() {
   const onSubmit = async (data: DeliveryAddressFormData) => {
     setDeliveryAddress(data)
     setShowDeliveryAddress(false)
+
+    toast.success('Endereço atualizado com sucesso!')
 
     localStorage.setItem(
       KEY_LOCAL_STORAGE_DELIVERY_ADDRESS,
