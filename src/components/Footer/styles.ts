@@ -25,8 +25,10 @@ export const FooterContent = styled.div`
     width: 100%;
     flex-wrap: wrap;
 
-    /* flex-direction: column;
-    gap: 2rem; */
+    @media (max-width: ${theme['breakpoint-lg']}) {
+      flex-direction: column;
+      gap: 2rem;
+    }
 
     > ul {
       list-style: none;
