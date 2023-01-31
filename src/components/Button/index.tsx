@@ -6,14 +6,21 @@ interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   label: string
   variant?: 'yellow' | 'purple'
   minimal?: boolean
+  disabled?: boolean
 }
 
 const BaseButton: ForwardRefRenderFunction<HTMLButtonElement, ButtonProps> = (
-  { label, minimal = false, variant = 'yellow', ...rest },
+  { label, minimal = false, disabled = false, variant = 'yellow', ...rest },
   ref,
 ) => {
   return (
-    <S.ButtonWrapper ref={ref} minimal={minimal} variant={variant} {...rest}>
+    <S.ButtonWrapper
+      minimal={minimal}
+      variant={variant}
+      disabled={disabled}
+      {...rest}
+      ref={ref}
+    >
       {label}
     </S.ButtonWrapper>
   )

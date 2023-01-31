@@ -61,6 +61,11 @@ export const ButtonWrapper = styled.button<ButtonWrapperProps>`
 
     transition: background ease-in-out 0.2s, color ease-in-out 0.2s;
 
+    &:disabled {
+      filter: brightness(0.7);
+      cursor: not-allowed;
+    }
+
     ${!!variant && modifiersButtonWrapper[variant](theme, minimal)}
   `}
 `
