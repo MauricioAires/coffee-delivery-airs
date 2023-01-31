@@ -16,6 +16,7 @@ interface CoffeesContextProps {
   coffees: Coffee[]
   addWishlist: (id: number, quantity: number) => void
   updateQuantityPurchased: (id: number, quantity: number) => void
+  resetWishlist: () => void
 }
 
 export const CoffeesContext = createContext({} as CoffeesContextProps)
@@ -86,12 +87,17 @@ export function CoffeesProvider({ children }: CoffeesProviderProps) {
     )
   }
 
+  function resetWishlist() {
+    setCoffees(defaultCoffeesList)
+  }
+
   return (
     <CoffeesContext.Provider
       value={{
         coffees,
         updateQuantityPurchased,
         addWishlist,
+        resetWishlist,
       }}
     >
       {children}
