@@ -14,6 +14,10 @@ ${({ theme }) => css`
     -webkit-font-smoothing: antialiased;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   button {
     border: 0;
     cursor: pointer;
