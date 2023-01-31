@@ -25,7 +25,7 @@ export function CheckoutSuccessPage() {
 
               <div>
                 <h2>Endereço de entrega</h2>
-                <span>{fullDeliveryAddress()}</span>
+                <span>{fullDeliveryAddress}</span>
               </div>
             </S.CheckoutInfo>
 
