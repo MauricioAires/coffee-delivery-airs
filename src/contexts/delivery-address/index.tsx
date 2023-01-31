@@ -23,6 +23,7 @@ interface DeliveryAddressContextProps {
   paymentMethod: PaymentMethod
   changeDeliveryAddress: (address: Partial<DeliveryAddress>) => void
   changePaymentMethod: (method: PaymentMethod) => void
+  getPaymentMethodText: (method: PaymentMethod) => string
   fullDeliveryAddress: () => string
 }
 
@@ -59,6 +60,16 @@ export function DeliveryAddressProvider({
     setPaymentMethod(method)
   }
 
+  function getPaymentMethodText(method: PaymentMethod) {
+    const methods = {
+      [PAYMENT_METHOD.CREDIT_CARD]: 'Cartão de crédito',
+      [PAYMENT_METHOD.DEBIT_CARD]: 'Cartão de débito',
+      [PAYMENT_METHOD.MONEY]: 'Dinheiro',
+    }
+
+    return methods[method]
+  }
+
   function changeDeliveryAddress(address: Partial<DeliveryAddress>) {
     setDeliveryAddress((state) => ({
       ...state,
@@ -75,6 +86,7 @@ export function DeliveryAddressProvider({
       value={{
         paymentMethod,
         deliveryAddress,
+        getPaymentMethodText,
         changePaymentMethod,
         changeDeliveryAddress,
         fullDeliveryAddress,

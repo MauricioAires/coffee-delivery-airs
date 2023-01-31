@@ -26,7 +26,8 @@ import {
 export function CheckoutPage() {
   const navigate = useNavigate()
   const { coffees, updateQuantityPurchased } = useCoffees()
-  const { changePaymentMethod, paymentMethod } = useDeliveryAddress()
+  const { changePaymentMethod, getPaymentMethodText, paymentMethod } =
+    useDeliveryAddress()
 
   const coffeesPurchased = coffees.filter((coffee) => coffee.quantityPurchased)
 
@@ -92,7 +93,7 @@ export function CheckoutPage() {
                 type="button"
               >
                 <CreditCard size={16} />
-                Cartão de crédito
+                {getPaymentMethodText(PAYMENT_METHOD.CREDIT_CARD)}
               </S.PaymentOption>
 
               <S.PaymentOption
@@ -103,7 +104,7 @@ export function CheckoutPage() {
                 type="button"
               >
                 <Bank size={16} />
-                Cartão de débito
+                {getPaymentMethodText(PAYMENT_METHOD.DEBIT_CARD)}
               </S.PaymentOption>
 
               <S.PaymentOption
@@ -112,7 +113,7 @@ export function CheckoutPage() {
                 type="button"
               >
                 <Money size={16} />
-                Dinheiro
+                {getPaymentMethodText(PAYMENT_METHOD.MONEY)}
               </S.PaymentOption>
             </S.PaymentList>
           </S.Payment>

@@ -1,10 +1,12 @@
 import { Coffee, CurrencyDollar, MapPin, Timer } from 'phosphor-react'
 import checkoutSuccess from '../../assets/checkout-success.svg'
 import { BulletPoint } from '../../components/BulletPoint'
+import { useDeliveryAddress } from '../../contexts/delivery-address'
 
 import * as S from './styles'
 
 export function CheckoutSuccessPage() {
+  const { getPaymentMethodText, paymentMethod } = useDeliveryAddress()
   return (
     <S.CheckoutSuccessWrapper>
       <S.CheckoutContent>
@@ -32,7 +34,7 @@ export function CheckoutSuccessPage() {
               </BulletPoint>
               <div>
                 <h2>Pagamento na entrega</h2>
-                <span>Cartão de Crédito</span>
+                <span>{getPaymentMethodText(paymentMethod)}</span>
               </div>
             </S.CheckoutInfo>
 
