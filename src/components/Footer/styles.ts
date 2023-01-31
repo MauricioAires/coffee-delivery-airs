@@ -11,6 +11,8 @@ export const FooterWrapper = styled.div`
 
     background: ${theme['base-card']};
     margin-top: 80px;
+
+    padding: 1rem;
   `}
 `
 
@@ -22,7 +24,6 @@ export const FooterContent = styled.div`
     max-width: 1220px;
     width: 100%;
     flex-wrap: wrap;
-    padding: 1rem;
 
     /* flex-direction: column;
     gap: 2rem; */
