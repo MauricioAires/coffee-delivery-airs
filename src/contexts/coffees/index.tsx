@@ -89,6 +89,10 @@ export function CoffeesProvider({ children }: CoffeesProviderProps) {
 
   function resetWishlist() {
     setCoffees(defaultCoffeesList)
+    localStorage.setItem(
+      KEY_LOCAL_STORAGE_WISHLIST_COFFEES,
+      JSON.stringify(defaultCoffeesList),
+    )
   }
 
   return (
